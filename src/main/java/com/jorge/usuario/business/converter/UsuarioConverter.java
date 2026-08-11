@@ -49,15 +49,14 @@ public class UsuarioConverter {
                 .build();
     }
 
-    public UsuarioDTO paraUsuario(Usuario usuarioDTO) {
+    public UsuarioDTO paraUsuarioDTO(Usuario usuario) {
         return UsuarioDTO.builder()
-                .nome(usuarioDTO.getNome())
-                .email(usuarioDTO.getEmail())
-                .senha(usuarioDTO.getSenha())
-                .enderecos(paraListaEnderecosDTO(usuarioDTO.getEnderecos()))
-                .telefones(paraListaTelefoneDTO(usuarioDTO.getTelefones()))
+                .nome(usuario.getNome())
+                .email(usuario.getEmail())
+                .senha(usuario.getSenha())
+                .enderecos(paraListaEnderecosDTO(usuario.getEnderecos()))
+                .telefones(paraListaTelefoneDTO(usuario.getTelefones()))
                 .build();
-
     }
 
     public List<EnderecoDTO> paraListaEnderecosDTO(List<Enderecos> enderecoDTOS) {
