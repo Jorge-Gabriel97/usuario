@@ -53,7 +53,6 @@ public class UsuarioConverter {
                 .id(usuario.getId())
                 .nome(usuario.getNome())
                 .email(usuario.getEmail())
-                .senha(usuario.getSenha())
                 .enderecos(paraListaEnderecosDTO(usuario.getEnderecos()))
                 .telefones(paraListaTelefoneDTO(usuario.getTelefones()))
                 .build();

@@ -14,6 +14,7 @@ import com.jorge.usuario.infrastructure.repository.TelefoneRepository;
 import com.jorge.usuario.infrastructure.repository.UsuarioRepository;
 import com.jorge.usuario.infrastructure.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,7 +59,13 @@ public class UsuarioService {
         }
     }
 
-    public void deletarUsuarioPorEmail(String email) {
+    public void deletarUsuarioPorEmail(String token, String email) {
+        String emailToken = jwtUtil.extrairEmailToken(token.substring(7));
+
+        if (!emailToken.equals(email)) {
+            throw new AccessDeniedException("Usuário só pode deletar a própria conta");
+        }
+
         usuarioRepository.deleteByEmail(email);
     }
 
