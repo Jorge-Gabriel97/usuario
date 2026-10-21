@@ -16,6 +16,7 @@ import com.jorge.usuario.infrastructure.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -47,6 +48,7 @@ public class UsuarioService {
         return usuarioRepository.existsByEmail(email);
     }
 
+    @Transactional(readOnly = true)
     public UsuarioDTO buscaUsuarioPorEmail(String email) {
         try {
             return usuarioConverter.paraUsuarioDTO(usuarioRepository.findByEmail(email).orElseThrow(
@@ -60,6 +62,7 @@ public class UsuarioService {
         usuarioRepository.deleteByEmail(email);
     }
 
+    @Transactional
     public UsuarioDTO atualizaDadosUsuario(String token, UsuarioDTO dto) {
         String email = jwtUtil.extrairEmailToken(token.substring(7));
 
